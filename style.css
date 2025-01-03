@@ -86,7 +86,7 @@ button:disabled {
     justify-content: space-between;
 }
 
-.container {
+.main-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -95,7 +95,7 @@ button:disabled {
     padding-inline: 5rem;
 }
 
-.video-wrapper {
+.video-container {
     border-radius: 1.5rem;
     border: 0.5rem solid #fff;
     max-width: 110rem;
@@ -103,13 +103,6 @@ button:disabled {
     height: auto;
     overflow: hidden;
     position: relative;
-}
-
-.video {
-    display: block;
-    width: 100%;
-    height: 100%;
-    transform: scale(1.0095);
 }
 
 .video-cover {
@@ -156,6 +149,7 @@ button:disabled {
     padding: 2rem 3.2rem;
     position: absolute;
     width: 100%;
+    ;
 }
 
 .video-info.is-hidden {
@@ -166,6 +160,13 @@ button:disabled {
     font-size: 1.8rem;
     font-weight: 400;
     margin-bottom: 0.5rem;
+}
+
+.video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform: scale(1.0095);
 }
 
 .controls .icon {
