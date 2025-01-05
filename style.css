@@ -165,7 +165,6 @@ h4 {
     background: linear-gradient(180deg, rgb(7 7 8 / 3%) 1%, rgb(0 0 0 / 76%) 50.37%);
     backdrop-filter: blur(1px);
     bottom: 0;
-    gap: 0.25rem;
     left: 0;
     padding: 2rem 3.2rem;
     position: absolute;
@@ -179,18 +178,21 @@ h4 {
 
 .video-info .title {
     font-weight: 400;
+    text-transform: capitalize;
 }
 
-.video-info .current-time {
-    color: #fafafa;
-}
 
 .video {
     display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
     transform: scale(1.0095);
-    object-fit: cover;
+}
+
+.progress {
+    display: inline-flex;
+    width: 100%;
+    margin-block: 1rem;
 }
 
 .controls .icon {
@@ -224,11 +226,11 @@ h4 {
 }
 
 .volume-group {
-    height: 4rem;
+    height: 3.2rem;
     width: 100%;
     border-radius: 99.9rem;
     transition: all 0.35s ease;
-    padding-inline: 1.4rem;
+    padding-inline: 1.2rem 1rem;
 }
 
 .volume-group:hover {
@@ -261,19 +263,18 @@ h4 {
 
     .video-info {
         padding: 1.2rem 1.2rem 1rem;
-    }
-
-    .video-info .title {
-        font-size: 1.6rem;
-        margin: 0;
+        font-size: 1.2rem;
     }
 
     .volume-group {
         height: 2.4rem;
-        background-color: rgb(0 0 0 / 98%);
         padding-inline: 0.8rem;
+        background-color: rgb(0 0 0 / 98%);
     }
 
+    /* .volume-group:hover {
+        background-color: transparent;
+    } */
 
     .volume-group .volume-bar,
     .volume-group:hover .volume-bar {
@@ -288,6 +289,10 @@ h4 {
 
     .controls .icon {
         width: 1.8rem;
+    }
+
+    .controls .pic-in-pic-btn {
+        display: none;
     }
 
 }

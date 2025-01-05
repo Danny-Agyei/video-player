@@ -34,9 +34,10 @@ $(document).ready(function () {
   $video.volume = 0;
 
   // Set video title
+
   const videoSrc = $video.currentSrc;
   const videoName = videoSrc.split("/").pop().split(".")[0];
-  const readableVideoName = decodeURI(videoName);
+  const readableVideoName = decodeURI(videoName).replace(/[^a-zA-Z0-9]/g, " ");
 
   $videoTitle.text(readableVideoName);
 
@@ -50,9 +51,12 @@ $(document).ready(function () {
       if (isCoverPlayButton) {
         $(".js-video-cover").addClass("is-hidden");
         $videoInfo.removeClass("is-hidden");
-      }
 
-      handlePlayPause();
+        handlePlayPause();
+      } else {
+        if (event.pointerType !== "mouse") return;
+        handlePlayPause();
+      }
     });
   });
 
@@ -226,7 +230,7 @@ $(document).ready(function () {
 
   // Fullscreen toggle handler
   $minMaxButton.click(toggleFullScreen);
-  $($video).on('dblclick', toggleFullScreen)
+  $($video).on("dblclick", toggleFullScreen);
 
   function toggleFullScreen(keyExit = false) {
     const videoContainer = $videoContainer.get(0);
