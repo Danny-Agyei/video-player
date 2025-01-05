@@ -1,163 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VideoMax</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="main-container">
-      <div class="video-container js-container">
-        <video
-          class="video js-video"
-          width="600"
-          height="600"
-          poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217"
-        >
-          <source
-            src="https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4"
-          />
-          Your browser does not support html5.
-        </video>
-        <div class="video-cover js-video-cover">
-          <button class="play-btn js-play-btn" data-cover-btn="true">
-            <i data-lucide="play" class="icon js-play-pause-icon"></i>
-          </button>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VideoMax</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="main-container">
+    <div class="video-container js-container">
+      <video class="video js-video" width="600" height="600"
+        poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217">
+        <source src="https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4" />
+        Your browser does not support html5.
+      </video>
+      <div class="video-cover js-video-cover">
+        <button class="play-btn js-play-btn" data-cover-btn="true">
+          <i data-lucide="play" class="icon js-play-pause-icon"></i>
+        </button>
+      </div>
+      <div class="video-info d-flex-cols js-info is-hidden">
+        <div class="d-flex-jb">
+          <h1 class="title js-title"></h1>
+          <p class="js-time"></p>
         </div>
-        <div class="video-info d-flex-cols js-info is-hidden">
-          <div class="d-flex-jb">
-            <h1 class="title js-title"></h1>
-            <p class="js-time"></p>
-          </div>
-          <div class="progress">
-            <input
-              type="range"
-              min="0"
-              max="100"
-              value="0"
-              step="0.01"
-              class="bar js-timeline"
-            />
-          </div>
+        <div class="progress">
+          <input type="range" min="0" max="100" value="0" step="0.01" class="bar js-timeline" />
+        </div>
 
-          <div class="controls d-flex-jb js-controls">
-            <!-- left controls  -->
-            <div class="left d-flex-ac">
-              <button class="play-btn js-play-btn">
-                <i data-lucide="pause" class="icon js-play-pause-icon"></i>
-              </button>
-              <button class="js-skip" data-skip-type="backward">
-                <svg
-                  class="icon"
-                  width="26"
-                  height="28"
-                  viewBox="0 0 26 28"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M11 19V12L9 13.3125"
-                    stroke="white"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M14 18.5627C14.3134 18.8373 14.7029 19 15.125 19C16.1605 19 17 18.0206 17 16.8125C17 15.6044 16.1605 14.625 15.125 14.625C14.7029 14.625 14.3134 14.7877 14 15.0623L14.375 12H17"
-                    stroke="white"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M4.81605 6.80412C-0.0309168 11.1977 -0.296082 18.579 4.22379 23.2905C8.74366 28.0021 16.337 28.2599 21.1839 23.8663C26.0309 19.4726 26.2961 12.0914 21.7762 7.37984C19.2053 4.69988 15.64 3.46089 12.1514 3.69923M13.8571 1L10.8008 3.83294L13.8571 6.87098"
-                    stroke="white"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </button>
-              <button class="js-skip" data-skip-type="forward">
-                <svg
-                  class="icon"
-                  width="26"
-                  height="28"
-                  viewBox="0 0 26 28"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M11 19V12L9 13.3125"
-                    stroke="white"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M14 18.5627C14.3134 18.8373 14.7029 19 15.125 19C16.1605 19 17 18.0206 17 16.8125C17 15.6044 16.1605 14.625 15.125 14.625C14.7029 14.625 14.3134 14.7877 14 15.0623L14.375 12H17"
-                    stroke="white"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M21.1839 6.80412C26.0309 11.1977 26.2961 18.579 21.7762 23.2905C17.2563 28.0021 9.66302 28.2599 4.81605 23.8663C-0.0309169 19.4726 -0.296081 12.0914 4.22379 7.37984C6.7947 4.69988 10.36 3.46089 13.8486 3.69923M12.1429 1L15.1992 3.83294L12.1429 6.87098"
-                    stroke="white"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+        <div class="controls d-flex-jb js-controls">
+          <div class="left d-flex-ac">
+            <button class="play-btn js-play-btn">
+              <i data-lucide="pause" class="icon js-play-pause-icon"></i>
+            </button>
+            <button class="js-skip" data-skip-type="backward">
+              <svg class="icon" width="26" height="28" viewBox="0 0 26 28" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M11 19V12L9 13.3125" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <path
+                  d="M14 18.5627C14.3134 18.8373 14.7029 19 15.125 19C16.1605 19 17 18.0206 17 16.8125C17 15.6044 16.1605 14.625 15.125 14.625C14.7029 14.625 14.3134 14.7877 14 15.0623L14.375 12H17"
+                  stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                  d="M4.81605 6.80412C-0.0309168 11.1977 -0.296082 18.579 4.22379 23.2905C8.74366 28.0021 16.337 28.2599 21.1839 23.8663C26.0309 19.4726 26.2961 12.0914 21.7762 7.37984C19.2053 4.69988 15.64 3.46089 12.1514 3.69923M13.8571 1L10.8008 3.83294L13.8571 6.87098"
+                  stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <button class="js-skip" data-skip-type="forward">
+              <svg class="icon" width="26" height="28" viewBox="0 0 26 28" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M11 19V12L9 13.3125" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <path
+                  d="M14 18.5627C14.3134 18.8373 14.7029 19 15.125 19C16.1605 19 17 18.0206 17 16.8125C17 15.6044 16.1605 14.625 15.125 14.625C14.7029 14.625 14.3134 14.7877 14 15.0623L14.375 12H17"
+                  stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                  d="M21.1839 6.80412C26.0309 11.1977 26.2961 18.579 21.7762 23.2905C17.2563 28.0021 9.66302 28.2599 4.81605 23.8663C-0.0309169 19.4726 -0.296081 12.0914 4.22379 7.37984C6.7947 4.69988 10.36 3.46089 13.8486 3.69923M12.1429 1L15.1992 3.83294L12.1429 6.87098"
+                  stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </div>
+          <div class="right d-flex-ac">
+            <div class="volume-group d-flex-ac">
+              <input type="range" class="volume-bar js-volume" min="0" max="1" value="0" step="0.01" />
+              <button class="js-speaker-btn">
+                <i data-lucide="volume-x" class="icon js-speaker-icon"></i>
               </button>
             </div>
-
-            <!-- right controls  -->
-            <div class="right d-flex-ac">
-              <div class="volume-group d-flex-ac">
-                <input
-                  type="range"
-                  class="volume-bar js-volume"
-                  min="0"
-                  max="1"
-                  value="0"
-                  step="0.01"
-                />
-                <button class="js-speaker-btn">
-                  <i data-lucide="volume-x" class="icon js-speaker-icon"></i>
-                </button>
-              </div>
-              <button class="pic-in-pic-btn js-pip-btn">
-                <i data-lucide="picture-in-picture-2" class="icon"></i>
-              </button>
-              <button class="js-minmax-btn">
-                <i data-lucide="maximize" class="icon"></i>
-              </button>
-            </div>
+            <button class="pic-in-pic-btn js-pip-btn">
+              <i data-lucide="picture-in-picture-2" class="icon"></i>
+            </button>
+            <button class="js-minmax-btn">
+              <i data-lucide="maximize" class="icon"></i>
+            </button>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-    <script>
-      lucide.createIcons();
-    </script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script>
+    lucide.createIcons();
+  </script>
 
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <script src="main.js"></script>
-  </body>
+  <script src="main.js"></script>
+</body>
+
 </html>

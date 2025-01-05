@@ -54,6 +54,7 @@ $(document).ready(function () {
 
         handlePlayPause();
       } else {
+
         if (event.pointerType !== "mouse") return;
         handlePlayPause();
       }
