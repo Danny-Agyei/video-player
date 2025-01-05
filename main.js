@@ -54,8 +54,12 @@ $(document).ready(function () {
 
         handlePlayPause();
       } else {
+        if ($(this).hasClass("js-video") && event.pointerType !== "mouse") {
 
-        if (event.pointerType !== "mouse") return;
+          toggleInfoVisibility('touch');
+          return;
+        }
+
         handlePlayPause();
       }
     });
@@ -67,13 +71,23 @@ $(document).ready(function () {
   }
 
   // Hide and show video controls
-  function toggleInfoVisibility(show = false) {
+  let show = true;
+
+  function toggleInfoVisibility(eventType) {
+    console.log(eventType)
+    eventType === "mouseenter" ?
+      (show = true) :
+      eventType === "mouseleave"
+        ? (show = false)
+        : (show = !show);
+    console.log(show)
+
     $videoInfo.stop()[show ? "fadeIn" : "fadeOut"]();
   }
 
   $videoContainer.on({
-    mouseenter: () => toggleInfoVisibility(true),
-    mouseleave: () => toggleInfoVisibility(false),
+    mouseenter: () => toggleInfoVisibility("mouseenter"),
+    mouseleave: () => toggleInfoVisibility("mouseleave"),
   });
 
   // video timeline / progreens bar change event
