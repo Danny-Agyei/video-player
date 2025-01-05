@@ -152,6 +152,29 @@ $(document).ready(function () {
     }
   }
 
+  // Video time
+  // Format time to HH:MM:SS
+  function formatTime(seconds) {
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = Math.floor(seconds % 60);
+
+    // Pad with zeroes if needed
+    const formattedHrs = hrs > 0 ? `${hrs}:` : "";
+    const formattedMins = mins < 10 && hrs > 0 ? `0${mins}` : mins;
+    const formattedSecs = secs < 10 ? `0${secs}` : secs;
+
+    return `${formattedHrs}${formattedMins}:${formattedSecs}`;
+  }
+
+  // Update the current time and duration display
+  function updateTimeDisplay() {
+    const currentTime = $video.currentTime || 0;
+    const duration = $video.duration || 0;
+
+    $timeDisplay.text(`${formatTime(currentTime)} / ${formatTime(duration)}`);
+  }
+
   // Mute & unmute handler
   $speakerButton.click(toggleAudio);
 
@@ -203,6 +226,7 @@ $(document).ready(function () {
 
   // Fullscreen toggle handler
   $minMaxButton.click(toggleFullScreen);
+  $($video).on('dblclick', toggleFullScreen)
 
   function toggleFullScreen(keyExit = false) {
     const videoContainer = $videoContainer.get(0);
@@ -236,29 +260,6 @@ $(document).ready(function () {
     }
 
     updateIcon("fullscreen");
-  }
-
-  // Video time
-  // Format time to HH:MM:SS
-  function formatTime(seconds) {
-    const hrs = Math.floor(seconds / 3600);
-    const mins = Math.floor((seconds % 3600) / 60);
-    const secs = Math.floor(seconds % 60);
-
-    // Pad with zeroes if needed
-    const formattedHrs = hrs > 0 ? `${hrs}:` : "";
-    const formattedMins = mins < 10 && hrs > 0 ? `0${mins}` : mins;
-    const formattedSecs = secs < 10 ? `0${secs}` : secs;
-
-    return `${formattedHrs}${formattedMins}:${formattedSecs}`;
-  }
-
-  // Update the current time and duration display
-  function updateTimeDisplay() {
-    const currentTime = $video.currentTime || 0;
-    const duration = $video.duration || 0;
-
-    $timeDisplay.text(`${formatTime(currentTime)} / ${formatTime(duration)}`);
   }
 
   // Prevent browser default fullscreen mode when hit f11
