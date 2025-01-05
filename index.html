@@ -4,12 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>VideoMax</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="main-container">
       <div class="video-container js-container">
-        <video class="video js-video" width="600" height="460">
+        <video
+          class="video js-video"
+          width="600"
+          height="600"
+          poster="poster.png"
+        >
           <source
             src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
           />
@@ -20,7 +31,7 @@
             <i data-lucide="play" class="icon js-play-pause-icon"></i>
           </button>
         </div>
-        <div class="video-info d-flex-col js-info is-hiddens">
+        <div class="video-info d-flex-col js-info is-hidden">
           <div class="d-flex-jb">
             <h1 class="title js-title"></h1>
             <p class="duration js-time"></p>
@@ -147,6 +158,6 @@
       referrerpolicy="no-referrer"
     ></script>
 
-    <script src="/main.js"></script>
+    <script src="main.js"></script>
   </body>
 </html>
