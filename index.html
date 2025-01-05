@@ -10,7 +10,10 @@
     <div class="main-container">
       <div class="video-container js-container">
         <video class="video js-video" width="600" height="460">
-          <source src="/Home - X_3.mp4" />
+          <source
+            src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4
+          "
+          />
           Your browser does not support html5.
         </video>
         <div class="video-cover js-video-cover">
@@ -19,14 +22,17 @@
           </button>
         </div>
         <div class="video-info d-flex-col js-info is-hiddens">
-          <h1 class="title">Good old days</h1>
+          <div class="d-flex-jb">
+            <h1 class="title js-title"></h1>
+            <p class="duration js-time"></p>
+          </div>
           <div class="progress">
             <input
               type="range"
               min="0"
               max="100"
               value="0"
-              step="0.1"
+              step="0.01"
               class="bar js-timeline"
             />
           </div>
@@ -118,7 +124,7 @@
                   <i data-lucide="volume-x" class="icon js-speaker-icon"></i>
                 </button>
               </div>
-              <button class="js-picture">
+              <button class="js-pip-btn">
                 <i data-lucide="picture-in-picture-2" class="icon"></i>
               </button>
               <button class="js-minmax-btn">

@@ -9,6 +9,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 html {
@@ -53,8 +54,16 @@ input[type='range'] {
 
 input[type='range']::-webkit-slider-thumb {
     width: 0.05rem;
+    height: 0.05rem;
     appearance: none;
     -webkit-appearance: none;
+}
+
+input[type='range']::-moz-range-thumb {
+    width: 0.05rem;
+    height: 0.05rem;
+    border-radius: 50%;
+    cursor: pointer;
 }
 
 input:disabled {
@@ -64,6 +73,14 @@ input:disabled {
 
 button:disabled {
     cursor: auto;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-size: inherit;
+    color: inherit;
 }
 
 .d-flex {
@@ -92,7 +109,7 @@ button:disabled {
     align-items: center;
     width: 100%;
     height: 100%;
-    padding-inline: 5rem;
+    padding-inline: 1.5rem;
 }
 
 .video-container {
@@ -103,6 +120,10 @@ button:disabled {
     height: auto;
     overflow: hidden;
     position: relative;
+}
+
+.video-container.is-fullmode {
+    border: none;
 }
 
 .video-cover {
@@ -141,15 +162,15 @@ button:disabled {
 }
 
 .video-info {
-    background: linear-gradient(180deg, rgb(7 7 8 / 3%) 1%, rgb(0 0 0 / 71%) 50.37%);
+    background: linear-gradient(180deg, rgb(7 7 8 / 3%) 1%, rgb(0 0 0 / 76%) 50.37%);
     backdrop-filter: blur(1px);
     bottom: 0;
-    gap: 0.5rem;
+    gap: 0.25rem;
     left: 0;
     padding: 2rem 3.2rem;
     position: absolute;
     width: 100%;
-    ;
+    font-size: 1.6rem;
 }
 
 .video-info.is-hidden {
@@ -157,9 +178,11 @@ button:disabled {
 }
 
 .video-info .title {
-    font-size: 1.8rem;
     font-weight: 400;
-    margin-bottom: 0.5rem;
+}
+
+.video-info .current-time {
+    color: #fafafa;
 }
 
 .video {
@@ -222,4 +245,24 @@ button:disabled {
 .volume-group:hover .volume-bar {
     width: 6.5rem;
     margin-inline-end: 1.8rem;
+}
+
+@media screen and (max-width: 481px) {
+    .video-info {
+        padding: 1.2rem 1.2rem 1rem;
+    }
+
+    .video-info .title {
+        font-size: 1.6rem;
+        margin: 0;
+    }
+
+    .volume-group {
+        height: 3rem;
+        padding-inline: 1rem;
+    }
+
+    .controls .icon {
+        width: 1.8rem;
+    }
 }

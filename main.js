@@ -2,13 +2,16 @@ $(document).ready(function () {
   const $video = $(".js-video").get(0);
   const $videoContainer = $(".js-container");
   const $videoInfo = $(".js-info");
+  const $videoTitle = $(".js-title");
   const $playButton = $(".js-play-btn");
   const $playPauseIcon = $(".js-play-pause-icon");
   const $timeline = $(".js-timeline");
+  const $timeDisplay = $(".js-time");
   const $volume = $(".js-volume");
   const $speakerButton = $(".js-speaker-btn");
   const $skipButton = $(".js-skip");
   const $minMaxButton = $(".js-minmax-btn");
+  const $picInPicButton = $(".js-pip-btn");
 
   if (
     !$video ||
@@ -30,6 +33,15 @@ $(document).ready(function () {
   $video.muted = true;
   $video.volume = 0;
 
+  // Set video title
+  const videoSrc = $video.currentSrc;
+  const videoName = videoSrc.split("/").pop().split(".")[0];
+  const readableVideoName = decodeURI(videoName);
+
+  $videoTitle.text(readableVideoName);
+
+  updateTimeDisplay();
+
   // handle play-pause state
   $(".js-video, .js-play-btn").each(function () {
     $(this).click((event) => {
@@ -40,32 +52,38 @@ $(document).ready(function () {
         $videoInfo.removeClass("is-hidden");
       }
 
-      $video.paused ? $video.play() : $video.pause();
-      updateIcon("play-pause");
+      handlePlayPause();
     });
   });
+
+  function handlePlayPause() {
+    $video.paused ? $video.play() : $video.pause();
+    updateIcon("play-pause");
+  }
 
   // Hide and show video controls
   function toggleInfoVisibility(show = false) {
     $videoInfo.stop()[show ? "fadeIn" : "fadeOut"]();
   }
 
-  // $videoContainer.on({
-  //   mouseenter: () => toggleInfoVisibility(true),
-  //   mouseleave: () => toggleInfoVisibility(false),
-  // });
+  $videoContainer.on({
+    mouseenter: () => toggleInfoVisibility(true),
+    mouseleave: () => toggleInfoVisibility(false),
+  });
 
+  // video timeline / progreens bar change event
   $timeline.on("input", function () {
     updateTime("timeline-bar");
   });
 
+  // video skipping event handler
   $skipButton.click(function () {
     const type = $(this).data("skip-type");
 
     updateTime("skip-button", { type });
   });
 
-  // Handle time update
+  // Handle video time update
   function updateTime(target, options = {}) {
     const duration = $video.duration;
     if (!duration || isNaN(duration)) return;
@@ -88,10 +106,13 @@ $(document).ready(function () {
     updateBar("timeline");
   }
 
-  // Keep update the progress bar whenever video time chanages
-  $video.addEventListener("timeupdate", () => {
+  // Listen for video events
+  $($video).on("timeupdate", () => {
+    updateTimeDisplay();
     updateBar("timeline");
   });
+
+  $($video).on("loadedmetadata seeked", updateTimeDisplay);
 
   // Volume change event handler
   $volume.on("input", function () {
@@ -111,14 +132,18 @@ $(document).ready(function () {
 
       $element = $volume;
       value = targetElem === "volume-bar" ? $element.val() : $video.volume;
-      $video.muted = $video.volume === 0;
+
+      if (value >= 0.98) value = 1;
+
       $video.volume = value;
+      $video.muted = $video.volume === 0;
 
       updateIcon("speaker");
     }
 
     if (value !== undefined && value !== null) {
       const progress = value * 100;
+
       const style = {
         "background-image": `linear-gradient(to right, var(--primary-color) ${progress}%, var(--secondary-color) ${progress}%, var(--secondary-color) 100%)`,
       };
@@ -179,7 +204,7 @@ $(document).ready(function () {
   // Fullscreen toggle handler
   $minMaxButton.click(toggleFullScreen);
 
-  function toggleFullScreen() {
+  function toggleFullScreen(keyExit = false) {
     const videoContainer = $videoContainer.get(0);
 
     if (!document.fullscreenElement) {
@@ -212,4 +237,87 @@ $(document).ready(function () {
 
     updateIcon("fullscreen");
   }
+
+  // Video time
+  // Format time to HH:MM:SS
+  function formatTime(seconds) {
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = Math.floor(seconds % 60);
+
+    // Pad with zeroes if needed
+    const formattedHrs = hrs > 0 ? `${hrs}:` : "";
+    const formattedMins = mins < 10 && hrs > 0 ? `0${mins}` : mins;
+    const formattedSecs = secs < 10 ? `0${secs}` : secs;
+
+    return `${formattedHrs}${formattedMins}:${formattedSecs}`;
+  }
+
+  // Update the current time and duration display
+  function updateTimeDisplay() {
+    const currentTime = $video.currentTime || 0;
+    const duration = $video.duration || 0;
+
+    $timeDisplay.text(`${formatTime(currentTime)} / ${formatTime(duration)}`);
+  }
+
+  // Prevent browser default fullscreen mode when hit f11
+  $(document).keydown((event) => {
+    const keyCode = event.code.toLowerCase();
+
+    if (keyCode === "f11") event.preventDefault();
+    if (keyCode === "space") handlePlayPause();
+  });
+
+  // Update minMax icon when exist fullscreen with escape or f11 key
+  $(document).on("fullscreenchange", () => {
+    if (!document.fullscreenElement) {
+      $videoContainer.removeClass("is-fullmode");
+      updateIcon("fullscreen");
+    }
+  });
+
+  // Picture in picture handler
+  $picInPicButton.click(async () => {
+    try {
+      // Check if Picture-in-Picture is supported
+      if (!document.pictureInPictureEnabled) {
+        console.log("Picture-in-Picture is not supported in this browser.");
+        return;
+      }
+
+      if (document.pictureInPictureElement) {
+        await document.exitPictureInPicture();
+      } else if (document.pictureInPictureEnabled) {
+        await $video.requestPictureInPicture();
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  });
+
+  // Update play-pause icon when in PictureInPicture mode
+  $($video).on("play pause", updateIconInPipMode);
+
+  function updateIconInPipMode() {
+    if (document.pictureInPictureElement) {
+      updateIcon("play-pause");
+    }
+  }
+
+  $($video).on("leavepictureinpicture", () => {
+    if ($video.paused) return; //video was manually paused
+
+    // Delay to allow the browser to update the state
+    setTimeout(() => {
+      if ($video.paused) {
+        // fix video paused automatically after exiting PiP mode
+        $video
+          .play()
+          .catch((err) =>
+            console.error("Error resuming video playback:", err.message)
+          );
+      }
+    }, 100);
+  });
 });
