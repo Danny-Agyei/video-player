@@ -114,7 +114,7 @@ h4 {
 
 .video-container {
   border-radius: 1.5rem;
-  border: 0.5rem solid #f71313;
+  border: 0.5rem solid #fff;
   max-width: 110rem;
   width: 100%;
   height: auto;
@@ -251,7 +251,7 @@ h4 {
   margin-inline-end: 1.8rem;
 }
 
-@media screen and (max-width: 481px) {
+@media screen and (max-width: 600px) {
   .video-cover .play-btn {
     width: 5rem;
     height: 5rem;

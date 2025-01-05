@@ -55,8 +55,7 @@ $(document).ready(function () {
         handlePlayPause();
       } else {
         if ($(this).hasClass("js-video") && event.pointerType !== "mouse") {
-
-          toggleInfoVisibility('touch');
+          toggleInfoVisibility("touch");
           return;
         }
 
@@ -74,13 +73,11 @@ $(document).ready(function () {
   let show = true;
 
   function toggleInfoVisibility(eventType) {
-    console.log(eventType)
-    eventType === "mouseenter" ?
-      (show = true) :
-      eventType === "mouseleave"
+    eventType === "mouseenter"
+      ? (show = true)
+      : eventType === "mouseleave"
         ? (show = false)
         : (show = !show);
-    console.log(show)
 
     $videoInfo.stop()[show ? "fadeIn" : "fadeOut"]();
   }
